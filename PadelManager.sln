@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.Core", "PadelManager.Model\PadelManager.Core.csproj", "{7A89E893-0FC1-403D-BCC4-33401E153F7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.Services", "PadelManager.Services\PadelManager.Services.csproj", "{7499F2DB-4145-4792-B17D-0B0C30F89930}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.DataAccess", "PadelManager.DataAccess\PadelManager.DataAccess.csproj", "{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.UiMvc", "PadelManager.UiMvc\PadelManager.UiMvc.csproj", "{9D577289-DEA1-4389-B18F-0BF162B1C875}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A89E893-0FC1-403D-BCC4-33401E153F7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A89E893-0FC1-403D-BCC4-33401E153F7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A89E893-0FC1-403D-BCC4-33401E153F7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A89E893-0FC1-403D-BCC4-33401E153F7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7499F2DB-4145-4792-B17D-0B0C30F89930}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7499F2DB-4145-4792-B17D-0B0C30F89930}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7499F2DB-4145-4792-B17D-0B0C30F89930}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7499F2DB-4145-4792-B17D-0B0C30F89930}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
