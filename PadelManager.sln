@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.DataAccess", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.UiMvc", "PadelManager.UiMvc\PadelManager.UiMvc.csproj", "{9D577289-DEA1-4389-B18F-0BF162B1C875}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PadelManager.ServicesTests", "PadelManager.ServicesTests\PadelManager.ServicesTests.csproj", "{8DC5F020-5856-4F72-BAED-1B952DC28A9D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D577289-DEA1-4389-B18F-0BF162B1C875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC5F020-5856-4F72-BAED-1B952DC28A9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC5F020-5856-4F72-BAED-1B952DC28A9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC5F020-5856-4F72-BAED-1B952DC28A9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC5F020-5856-4F72-BAED-1B952DC28A9D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
