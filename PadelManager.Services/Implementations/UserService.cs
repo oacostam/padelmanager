@@ -44,6 +44,11 @@ namespace PadelManager.Services.Implementations
             userRepository.Complete();
         }
 
+        public User GetById(int id)
+        {
+            return userRepository.Users.First(u => u.Id == id);
+        }
+
         public Reservation CreateReservation(Reservation reservation)
         {
             //TODO Add bussines checks

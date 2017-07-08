@@ -1,6 +1,8 @@
-﻿namespace PadelManager.Core.Interfaces
+﻿using System;
+
+namespace PadelManager.Core.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
         int Complete();
     }
