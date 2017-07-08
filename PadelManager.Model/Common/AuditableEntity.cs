@@ -7,13 +7,13 @@ namespace PadelManager.Core.Common
     {
         protected AuditableEntity()
         {
-            CreatedDate = DateTime.Now;
+            CreationdDate = DateTime.Now;
             UpdatedDate = DateTime.Now;
         }
 
         [ScaffoldColumn(false)]
         [Required]
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreationdDate { get; set; }
 
 
         [MaxLength(256)]

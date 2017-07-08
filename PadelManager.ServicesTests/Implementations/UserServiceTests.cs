@@ -3,6 +3,7 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PadelManager.Core.Exceptions;
 using PadelManager.Core.Interfaces;
 using PadelManager.Core.Models;
 using PadelManager.Services.Implementations;
@@ -26,7 +27,7 @@ namespace PadelManager.ServicesTests.Implementations
                 Address = "Address 1",
                 CreatedBy = "Mock",
                 Id = 1,
-                CreatedDate = new DateTime(1977, 2, 9),
+                CreationdDate = new DateTime(1977, 2, 9),
                 IsActive = true,
                 UserName = "oacostam",
                 UpdatedDate = DateTime.Now,
@@ -38,12 +39,25 @@ namespace PadelManager.ServicesTests.Implementations
         }
 
         [TestMethod]
-        public void UpdateTest()
+        [ExpectedException(typeof(PadelManagerException))]
+        public void NotMoreThanOneReservationPerDayTest()
         {
             var user = userService.GetById(1);
-            Reservation reservation = new Reservation(){ReservedToUser = user};
-            reservation = userService.CreateReservation(reservation);
-            Assert.IsTrue(reservation.Id > 0);
+            Reservation reservation1 = new Reservation(){User = user, ReservationDate = new DateTime(2017, 1, 1)};
+            userService.CreateReservation(reservation1);
+            Reservation reservation2 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 1, 1) };
+            userService.CreateReservation(reservation2);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(PadelManagerException))]
+        public void NotUnpayedReservationsTest()
+        {
+            var user = userService.GetById(1);
+            Reservation reservation1 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 1, 1) };
+            userService.CreateReservation(reservation1);
+            Reservation reservation2 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 10, 1) };
+            userService.CreateReservation(reservation2);
         }
     }
 }

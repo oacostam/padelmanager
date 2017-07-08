@@ -7,12 +7,12 @@ namespace PadelManager.Core.Models
 {
     public class Reservation: AuditableEntity, IValidatableObject
     {
-      
-        [Required]
-        public User ReservedToUser { get; set; }
 
         [Required]
-        public Court RservedCourt { get; set; }
+        public User User { get; set; }
+
+        [Required]
+        public Court Court { get; set; }
 
         [Required]
         public DateTime ReservationDate { get; set; }
