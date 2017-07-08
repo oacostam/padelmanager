@@ -301,6 +301,20 @@
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PadelManager.DataAccess\PadelManager.DataAccess.csproj">
+      <Project>{6D73E8B9-22A3-4579-AB54-54FF665CBEC0}</Project>
+      <Name>PadelManager.DataAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PadelManager.Model\PadelManager.Core.csproj">
+      <Project>{7A89E893-0FC1-403D-BCC4-33401E153F7D}</Project>
+      <Name>PadelManager.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PadelManager.Services\PadelManager.Services.csproj">
+      <Project>{7499F2DB-4145-4792-B17D-0B0C30F89930}</Project>
+      <Name>PadelManager.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

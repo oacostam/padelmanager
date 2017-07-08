@@ -10,6 +10,10 @@ namespace PadelManager.UiMvc.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using PadelManager.Core.Interfaces;
+    using PadelManager.DataAccess;
+    using PadelManager.Services.Interfaces;
+    using PadelManager.Services.Implementations;
 
     public static class NinjectWebCommon 
     {
@@ -61,6 +65,10 @@ namespace PadelManager.UiMvc.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IUnitOfWork>().To<PadelManagerContext>().InRequestScope();
+            kernel.Bind<ICourtRepository>().To<PadelManagerContext>().InRequestScope();
+            kernel.Bind<IUserRepository>().To<PadelManagerContext>().InRequestScope();
+            kernel.Bind<IUserService>().To<UserService>().InRequestScope();
         }        
     }
 }
