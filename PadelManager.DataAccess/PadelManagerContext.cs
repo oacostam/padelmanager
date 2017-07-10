@@ -1,10 +1,10 @@
 ﻿#region
 
-using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using PadelManager.Core.Common;
 using PadelManager.Core.Interfaces;
+using PadelManager.Core.Models;
 
 #endregion
 
@@ -14,6 +14,14 @@ namespace PadelManager.DataAccess
     {
         public PadelManagerContext() : base("PadelManagerConnectionString")
         {
+            Database.SetInitializer(new CreateDatabaseIfNotExists<PadelManagerContext>());
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Court>().ToTable("Courts");
+            modelBuilder.Entity<Reservation>().ToTable("Reservations");
         }
 
 

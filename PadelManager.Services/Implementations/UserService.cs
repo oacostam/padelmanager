@@ -49,8 +49,7 @@ namespace PadelManager.Services.Implementations
 
         public IEnumerable<Reservation> GetUnpayedReservations(int userId)
         {
-            return UnitOfWork.GetIDbSet<Reservation>().Where(r => r.User.Id == userId && !r.PayedAmmount.HasValue)
-                .ToList();
+            return UnitOfWork.GetIDbSet<Reservation>().Where(r => r.User.Id == userId && !r.PayedAmmount.HasValue).ToList();
         }
     }
 }
