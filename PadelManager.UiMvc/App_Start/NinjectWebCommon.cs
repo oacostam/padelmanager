@@ -66,8 +66,6 @@ namespace PadelManager.UiMvc.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUnitOfWork>().To<PadelManagerContext>().InRequestScope();
-            kernel.Bind<ICourtRepository>().To<PadelManagerContext>().InRequestScope();
-            kernel.Bind<IUserRepository>().To<PadelManagerContext>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
         }        
     }

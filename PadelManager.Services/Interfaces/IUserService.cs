@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using PadelManager.Core.Models;
-using PadelManager.Services.Common;
 
 namespace PadelManager.Services.Interfaces
 {
@@ -8,6 +7,6 @@ namespace PadelManager.Services.Interfaces
     {
         Reservation CreateReservation(Reservation reservation);
 
-        IEnumerable<Reservation> GetUnpayedReservations(User user);
+        IEnumerable<Reservation> GetUnpayedReservations(int userId);
     }
 }

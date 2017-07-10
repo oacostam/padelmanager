@@ -14,69 +14,69 @@ namespace PadelManager.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUnitOfWork unitOfWork)
         {
-            this.userRepository = userRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         public void Create(User entity)
         {
-            userRepository.Users.Add(entity);
-            userRepository.Complete();
+            unitOfWork.Users.Add(entity);
+            unitOfWork.Complete();
         }
 
         public void Delete(User entity)
         {
-            userRepository.Users.Remove(entity);
-            userRepository.Complete();
+            unitOfWork.Users.Remove(entity);
+            unitOfWork.Complete();
         }
 
         public IEnumerable<User> GetAll(int page, int size, out int total)
         {
-            total = userRepository.Users.Count();
+            total = unitOfWork.Users.Count();
             int skipRows = (page - 1) * size;
-            return userRepository.Users.Skip(skipRows).Take(size).ToList();
+            return unitOfWork.Users.Skip(skipRows).Take(size).ToList();
         }
 
         public void Update(User entity)
         {
-            userRepository.Users.Attach(entity);
-            userRepository.Complete();
+            unitOfWork.Users.Attach(entity);
+            unitOfWork.Complete();
         }
 
         public User GetById(int id)
         {
-            return userRepository.Users.First(u => u.Id == id);
+            return unitOfWork.Users.First(u => u.Id == id);
         }
 
         public Reservation CreateReservation(Reservation reservation)
         {
             //Only one reservation per day
             var reservationsCount =
-                userRepository.Reservations.Count(r => r.User.Id == reservation.User.Id &&  r.ReservationDate.Date == reservation.ReservationDate.Date );
+                unitOfWork.Reservations.Count(r => r.User.Id == reservation.User.Id &&  r.ReservationDate.Date == reservation.ReservationDate.Date );
             if (reservationsCount > 0)
             {
                 throw new PadelManagerException("No se puede realizar más de una reserva al día");
             }
             // No reservation if pending payments
             var unpayedReservations =
-                userRepository.Reservations.Count(r => r.User.Id == reservation.User.Id &&
+                unitOfWork.Reservations.Count(r => r.User.Id == reservation.User.Id &&
                                                        r.ReservationDate.Date < DateTime.Now.Date &&
                                                        !r.PayedAmmount.HasValue);
             if (unpayedReservations > 0)
             {
                 throw new PadelManagerException("No se puede realizar una reserva sin haber pagado las anteriores pendientes.");
             }
-            var result = userRepository.Reservations.Add(reservation);
-            userRepository.Complete();
+            var result = unitOfWork.Reservations.Add(reservation);
+            unitOfWork.Complete();
             return result;
         }
 
-        public IEnumerable<Reservation> GetUnpayedReservations(User user)
+        public IEnumerable<Reservation> GetUnpayedReservations(int userId)
         {
-            return userRepository.Reservations.Where(r => r.User.Id == user.Id && !r.PayedAmmount.HasValue).ToList();
+            return unitOfWork.Reservations.Where(r => r.User.Id == userId && !r.PayedAmmount.HasValue).ToList();
         }
     }
 }

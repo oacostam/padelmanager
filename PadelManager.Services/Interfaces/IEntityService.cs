@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using PadelManager.Core.Common;
 
-namespace PadelManager.Services.Common
+namespace PadelManager.Services.Interfaces
 {
     public interface IEntityService<T> where T : IEntity
     {

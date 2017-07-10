@@ -21,7 +21,7 @@ namespace PadelManager.ServicesTests.Implementations
         [TestInitialize]
         public void UserServiceTestsInitialize()
         {
-            var userRepo = new Mock<IUserRepository>();
+            var userRepo = new Mock<IUnitOfWork>();
             userRepo.Setup(r => r.Users).Returns(new FakeDbSet<User>(new User
             {
                 Address = "Address 1",
