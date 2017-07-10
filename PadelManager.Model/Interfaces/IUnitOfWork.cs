@@ -1,21 +1,23 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using PadelManager.Core.Models;
+using PadelManager.Core.Common;
 
 namespace PadelManager.Core.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
 
-        DbEntityEntry<T> EntityEntry<T>(T entity) where T : class;
+        DbEntityEntry<T> EntityEntry<T>(T entity) where T : class, IEntity;
 
         int Complete();
 
-        IDbSet<User> Users { get; set; }
+        IDbSet<T> GetIDbSet<T>() where T : class, IEntity;
 
-        IDbSet<Court> Courts { get; set; }
+        void SetModified(object entity);
 
-        IDbSet<Reservation> Reservations { get; set; }
+        void SetDeleted(object entity);
+
+        void SetAdded(object entity);
     }
 }

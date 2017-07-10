@@ -46,6 +46,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\BaseService.cs" />
+    <Compile Include="Implementations\CourtService.cs" />
     <Compile Include="Interfaces\ICourtService.cs" />
     <Compile Include="Interfaces\IEntityService.cs" />
     <Compile Include="Implementations\UserService.cs" />
@@ -62,8 +64,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Common\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

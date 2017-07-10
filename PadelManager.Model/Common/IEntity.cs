@@ -1,4 +1,6 @@
-﻿namespace PadelManager.Core.Common
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PadelManager.Core.Common
 {
     public interface IEntity
     {

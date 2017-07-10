@@ -10,6 +10,8 @@ using PadelManager.Services.Implementations;
 
 #endregion
 
+
+
 namespace PadelManager.ServicesTests.Implementations
 {
     [TestClass]
@@ -21,8 +23,8 @@ namespace PadelManager.ServicesTests.Implementations
         [TestInitialize]
         public void UserServiceTestsInitialize()
         {
-            var userRepo = new Mock<IUnitOfWork>();
-            userRepo.Setup(r => r.Users).Returns(new FakeDbSet<User>(new User
+            var dbContext = new Mock<IUnitOfWork>();
+            dbContext.Setup(u => u.GetIDbSet<User>()).Returns(new FakeDbSet<User>(new User
             {
                 Address = "Address 1",
                 CreatedBy = "Mock",
@@ -34,8 +36,26 @@ namespace PadelManager.ServicesTests.Implementations
                 Password = Guid.NewGuid().ToString(),
                 UpdatedBy = "Mock"
             }));
-            userRepo.Setup(r => r.Reservations).Returns(new FakeDbSet<Reservation>());
-            userService = new UserService(userRepo.Object);
+            dbContext.Setup(r => r.GetIDbSet<Reservation>()).Returns(new FakeDbSet<Reservation>());
+            userService = new UserService(dbContext.Object);
+        }
+
+        [TestMethod]
+        public void CreateTest()
+        {
+            User user = new User
+            {
+                Address = "Address 1",
+                CreatedBy = "Test",
+                CreationdDate = DateTime.Now,
+                IsActive = true,
+                Password = Guid.NewGuid().ToString(),
+                UpdatedBy = "Test",
+                UserName = "TestUser",
+                UpdatedDate = DateTime.Now
+            };
+            user = userService.Create(user);
+            Assert.IsNotNull(user);
         }
 
         [TestMethod]
@@ -43,9 +63,9 @@ namespace PadelManager.ServicesTests.Implementations
         public void NotMoreThanOneReservationPerDayTest()
         {
             var user = userService.GetById(1);
-            Reservation reservation1 = new Reservation(){User = user, ReservationDate = new DateTime(2017, 1, 1)};
+            Reservation reservation1 = new Reservation {User = user, ReservationDate = new DateTime(2017, 1, 1)};
             userService.CreateReservation(reservation1);
-            Reservation reservation2 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 1, 1) };
+            Reservation reservation2 = new Reservation {User = user, ReservationDate = new DateTime(2017, 1, 1)};
             userService.CreateReservation(reservation2);
         }
 
@@ -54,9 +74,9 @@ namespace PadelManager.ServicesTests.Implementations
         public void NotUnpayedReservationsTest()
         {
             var user = userService.GetById(1);
-            Reservation reservation1 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 1, 1) };
+            Reservation reservation1 = new Reservation {User = user, ReservationDate = new DateTime(2017, 1, 1)};
             userService.CreateReservation(reservation1);
-            Reservation reservation2 = new Reservation() { User = user, ReservationDate = new DateTime(2017, 10, 1) };
+            Reservation reservation2 = new Reservation {User = user, ReservationDate = new DateTime(2017, 10, 1)};
             userService.CreateReservation(reservation2);
         }
     }
