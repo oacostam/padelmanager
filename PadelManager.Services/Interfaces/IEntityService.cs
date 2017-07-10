@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using PadelManager.Core.Common;
 
 namespace PadelManager.Services.Interfaces
@@ -14,5 +14,7 @@ namespace PadelManager.Services.Interfaces
         void Update(T entity);
 
         T GetById(int id);
+
+        T SetActive(int id, bool active);
     }
 }

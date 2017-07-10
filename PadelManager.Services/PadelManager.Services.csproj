@@ -46,6 +46,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICourtService.cs" />
     <Compile Include="Interfaces\IEntityService.cs" />
     <Compile Include="Implementations\UserService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />

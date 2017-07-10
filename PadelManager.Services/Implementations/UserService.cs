@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using PadelManager.Core.Exceptions;
 using PadelManager.Core.Interfaces;
@@ -40,15 +41,26 @@ namespace PadelManager.Services.Implementations
             return unitOfWork.Users.Skip(skipRows).Take(size).ToList();
         }
 
-        public void Update(User entity)
+        public void Update(User user)
         {
-            unitOfWork.Users.Attach(entity);
+            unitOfWork.Users.Attach(user);
+            unitOfWork.EntityEntry(user).State = EntityState.Modified;
             unitOfWork.Complete();
         }
 
         public User GetById(int id)
         {
             return unitOfWork.Users.First(u => u.Id == id);
+        }
+
+        public User SetActive(int id, bool active)
+        {
+            var user = unitOfWork.Users.First(u => u.Id == id);
+            user.IsActive = active;
+            unitOfWork.EntityEntry(user).State = EntityState.Modified;
+            user = unitOfWork.Users.Add(user);
+            unitOfWork.Complete();
+            return user;
         }
 
         public Reservation CreateReservation(Reservation reservation)
@@ -70,6 +82,7 @@ namespace PadelManager.Services.Implementations
                 throw new PadelManagerException("No se puede realizar una reserva sin haber pagado las anteriores pendientes.");
             }
             var result = unitOfWork.Reservations.Add(reservation);
+            unitOfWork.EntityEntry(reservation).State = EntityState.Added;
             unitOfWork.Complete();
             return result;
         }
