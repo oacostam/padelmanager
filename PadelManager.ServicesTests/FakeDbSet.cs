@@ -51,7 +51,7 @@ namespace PadelManager.ServicesTests
 
         public T Find(params object[] keyValues)
         {
-            throw new NotImplementedException("Wouldn't you rather use Linq .SingleOrDefault()?");
+            throw new NotImplementedException("Use Linq .SingleOrDefault()");
         }
 
         public T Add(T entity)
