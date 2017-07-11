@@ -12,14 +12,6 @@ namespace PadelManager.Core.Models
     public class User : AuditableEntity, IValidatableObject
     {
         [Required]
-        [StringLength(50)]
-        public string UserName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Password { get; set; }
-
-        [Required]
         [StringLength(100)]
         public string Address { get; set; }
 

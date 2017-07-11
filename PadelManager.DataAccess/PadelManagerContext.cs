@@ -2,6 +2,7 @@
 
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using Microsoft.AspNet.Identity.EntityFramework;
 using PadelManager.Core.Common;
 using PadelManager.Core.Interfaces;
 using PadelManager.Core.Models;
@@ -10,18 +11,11 @@ using PadelManager.Core.Models;
 
 namespace PadelManager.DataAccess
 {
-    public class PadelManagerContext : DbContext, IUnitOfWork
+    public class PadelManagerContext : IdentityDbContext<ApplicationUser>, IUnitOfWork
     {
         public PadelManagerContext() : base("PadelManager")
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<PadelManagerContext>());
-        }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().ToTable("Users");
-            modelBuilder.Entity<Court>().ToTable("Courts");
-            modelBuilder.Entity<Reservation>().ToTable("Reservations");
         }
 
 
@@ -53,6 +47,20 @@ namespace PadelManager.DataAccess
         public void SetAdded(object entity)
         {
             Entry(entity).State = EntityState.Added;
+        }
+
+
+        public static PadelManagerContext Create()
+        {
+            return new PadelManagerContext();
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Court>().ToTable("Courts");
+            modelBuilder.Entity<Reservation>().ToTable("Reservations");
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

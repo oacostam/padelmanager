@@ -8,7 +8,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using PadelManager.UiMvc.Models;
+using PadelManager.Core.Models;
+using PadelManager.DataAccess;
 
 #endregion
 
@@ -35,7 +36,7 @@ namespace PadelManager.UiMvc
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store): base(store)
+        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store)
         {
         }
 
@@ -43,7 +44,7 @@ namespace PadelManager.UiMvc
             IOwinContext context)
         {
             var manager =
-                new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+                new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<PadelManagerContext>()));
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {

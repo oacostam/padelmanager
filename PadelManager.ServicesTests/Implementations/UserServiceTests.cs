@@ -31,9 +31,7 @@ namespace PadelManager.ServicesTests.Implementations
                 Id = 1,
                 CreationdDate = new DateTime(1977, 2, 9),
                 IsActive = true,
-                UserName = "oacostam",
                 UpdatedDate = DateTime.Now,
-                Password = Guid.NewGuid().ToString(),
                 UpdatedBy = "Mock"
             }));
             dbContext.Setup(r => r.GetIDbSet<Reservation>()).Returns(new FakeDbSet<Reservation>());
@@ -49,9 +47,7 @@ namespace PadelManager.ServicesTests.Implementations
                 CreatedBy = "Test",
                 CreationdDate = DateTime.Now,
                 IsActive = true,
-                Password = Guid.NewGuid().ToString(),
                 UpdatedBy = "Test",
-                UserName = "TestUser",
                 UpdatedDate = DateTime.Now
             };
             user = userService.Create(user);
