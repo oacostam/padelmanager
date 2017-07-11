@@ -12,7 +12,7 @@ namespace PadelManager.DataAccess
 {
     public class PadelManagerContext : DbContext, IUnitOfWork
     {
-        public PadelManagerContext() : base("PadelManagerConnectionString")
+        public PadelManagerContext() : base("PadelManager")
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<PadelManagerContext>());
         }

@@ -58,11 +58,11 @@ namespace PadelManager.UiMvc
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = Secrets.GoogleOAuthClientId,
+                ClientSecret = Secrets.GoogleOAuthClientSecret
+            });
         }
     }
 }
