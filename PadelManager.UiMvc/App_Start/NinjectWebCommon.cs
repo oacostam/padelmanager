@@ -14,6 +14,10 @@ namespace PadelManager.UiMvc.App_Start
     using PadelManager.DataAccess;
     using PadelManager.Services.Interfaces;
     using PadelManager.Services.Implementations;
+    using Microsoft.AspNet.Identity;
+    using PadelManager.Core.Models;
+    using Microsoft.AspNet.Identity.EntityFramework;
+    using Microsoft.Owin.Security;
 
     public static class NinjectWebCommon 
     {
@@ -48,7 +52,6 @@ namespace PadelManager.UiMvc.App_Start
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -67,6 +70,10 @@ namespace PadelManager.UiMvc.App_Start
         {
             kernel.Bind<IUnitOfWork>().To<PadelManagerContext>().InRequestScope();
             kernel.Bind<IUserService>().To<UserService>().InRequestScope();
+            kernel.Bind<ICourtService>().To<CourtService>().InRequestScope();
+            kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
+            kernel.Bind<UserManager<ApplicationUser>>().ToSelf().InRequestScope();
+            kernel.Bind<IAuthenticationManager>().ToMethod(c => HttpContext.Current.GetOwinContext().Authentication).InRequestScope();
         }        
     }
 }

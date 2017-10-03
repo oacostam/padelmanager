@@ -1,7 +1,9 @@
 ﻿#region
 
+using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using Microsoft.AspNet.Identity.EntityFramework;
 using PadelManager.Core.Common;
 using PadelManager.Core.Interfaces;
@@ -13,9 +15,13 @@ namespace PadelManager.DataAccess
 {
     public class PadelManagerContext : IdentityDbContext<ApplicationUser>, IUnitOfWork
     {
-        public PadelManagerContext() : base("PadelManager")
+        public PadelManagerContext() : base("name=PadelManager", true)
         {
             Database.SetInitializer(new CreateDatabaseIfNotExists<PadelManagerContext>());
+            Configuration.LazyLoadingEnabled = false;
+            Configuration.ProxyCreationEnabled = false;
+            Database.Log = Console.Write;
+            Database.Initialize(false);
         }
 
 
@@ -57,10 +63,10 @@ namespace PadelManager.DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<Court>().ToTable("Courts");
             modelBuilder.Entity<Reservation>().ToTable("Reservations");
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

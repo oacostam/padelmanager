@@ -8,6 +8,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using PadelManager.Core.Models;
+using PadelManager.Services.Interfaces;
 using PadelManager.UiMvc.Models;
 
 #endregion
@@ -17,17 +18,15 @@ namespace PadelManager.UiMvc.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private readonly IUserService userService;
         private ApplicationSignInManager signInManager;
         private ApplicationUserManager userManager;
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserService userService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            this.userService = userService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -141,11 +140,19 @@ namespace PadelManager.UiMvc.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var applicationUser = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var result = await UserManager.CreateAsync(applicationUser, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    await SignInManager.SignInAsync(applicationUser, isPersistent: false, rememberBrowser: false);
+
+                    User user = new User
+                    {
+                        Address = model.Address,
+                        ApplicationUser = applicationUser,
+                        CreatedBy = applicationUser.Id
+                    };
+                    userService.Create(user);
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -366,14 +373,21 @@ namespace PadelManager.UiMvc.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser {UserName = model.Email, Email = model.Email};
-                var result = await UserManager.CreateAsync(user);
+                var applicationUser = new ApplicationUser {UserName = model.Email, Email = model.Email};
+                var result = await UserManager.CreateAsync(applicationUser);
                 if (result.Succeeded)
                 {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
+                    result = await UserManager.AddLoginAsync(applicationUser.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.SignInAsync(applicationUser, false, false);
+                        User user = new User
+                        {
+                            Address = model.Address,
+                            ApplicationUser = applicationUser,
+                            CreatedBy = applicationUser.Id
+                        };
+                        userService.Create(user);
                         return RedirectToLocal(returnUrl);
                     }
                 }

@@ -38,7 +38,7 @@ namespace PadelManager.Services.Common
         {
             total = UnitOfWork.GetIDbSet<T>().Count();
             int skipRows = (page - 1) * size;
-            return UnitOfWork.GetIDbSet<T>().Skip(skipRows).Take(size).ToList();
+            return UnitOfWork.GetIDbSet<T>().OrderBy(c => c.Id).Skip(skipRows).Take(size).ToList();
         }
 
         public T Update(T entity)
