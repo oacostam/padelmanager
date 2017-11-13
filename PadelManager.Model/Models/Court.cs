@@ -14,9 +14,9 @@ namespace PadelManager.Core.Models
 
         public virtual ICollection<Reservation> Reservations { get; set; } = new HashSet<Reservation>();
 
-        public TimeSpan OpeningTime { get; set; } = TimeSpan.MinValue;
+        public TimeSpan OpeningTime { get; set; } = new TimeSpan(8, 0, 0);
 
-        public TimeSpan ClosingTime { get; set; } = TimeSpan.MinValue;
+        public TimeSpan ClosingTime { get; set; } = new TimeSpan(22, 0, 0);
    
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
